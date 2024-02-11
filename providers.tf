@@ -19,7 +19,7 @@ terraform {
     # Storage Account Access Key
     # Do not store in plain text!!! Export to env variable instead!!!
     # export ARM_ACCESS_KEY="my-storage-account-access-key"
-    access_key = ""
+    # access_key = ""
   }
 }
 
@@ -30,6 +30,21 @@ provider "azurerm" {
   features {
 
   }
+  # Azure will sometimes hang when trying to register unneeded providers
+  skip_provider_registration = true
+
+  # You should load these via environment variables
+  #   subscription_id = ""
+  #   client_id       = ""
+  #   client_secret   = ""
+  #   tenant_id       = ""
+  #
+  # for example:
+  # export ARM_SUBSCRIPTION_ID="<subscription_id>"
+  # export ARM_CLIENT_ID="<app_id>"
+  # export ARM_CLIENT_SECRET="<password>"
+  # export ARM_TENANT_ID="<tenant_id>"
+
 }
 
 locals {
