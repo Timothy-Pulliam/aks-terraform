@@ -25,13 +25,5 @@ module "vnet" {
     }
   }
 
-  # VNet Peering
-  #   resource_group_name = azurerm_resource_group.this.name
-  #   vnet_location       = azurerm_resource_group.this.location
-  #   address_space       = var.vnet_cidr
-  #   subnet_names        = var.subnet_names
-  #   subnet_cidr         = var.subnet_cidr
-
   tags = local.tags
-
 }
