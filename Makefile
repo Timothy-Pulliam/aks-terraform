@@ -20,9 +20,6 @@ backend:
 sslcert:
 	./scripts/create-self-signed-ssl.sh
 
-sp:
-	. ./scripts/create-service-principle.sh
-
 format:
 	terraform fmt
 
@@ -37,6 +34,9 @@ plan:
 
 apply:
 	terraform apply tfplan
+
+destroy:
+	terraform destroy -var-file $(shell terraform workspace show).tfvars -auto-approve
 
 cost:
 	infracost breakdown --path .
