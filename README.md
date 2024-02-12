@@ -91,10 +91,10 @@ terraform {
 
 # Create the Service Priniciple
 
-Run the create service principle script
+Source the create service principle script. (You must source it to set environment variables in your current shell)
 
 ```
-./scripts/create-service-principle.sh
+source ./scripts/create-service-principle.sh
 ```
 
 This creates a service principle with the following assigned Roles at the (currently selected) subscription level
@@ -125,7 +125,7 @@ Then modify `main.tf` to use the backend
     # Storage Account Access Key
     # Do not store in plain text!!! Export to env variable instead!!!
     # export ARM_ACCESS_KEY="my-storage-account-access-key"
-    access_key = ""
+    # access_key = ""
   }
 ```
 
@@ -147,7 +147,7 @@ Finally, run `terraform init` to initialize the backend
 
 # Running Terraform
 
-Optionally, enable verbose logging:
+Optionally, enable verbose logging to stdout:
 
 - debug
 - info
