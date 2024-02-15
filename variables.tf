@@ -17,6 +17,12 @@ variable "environment" {
   default     = "dev"
 }
 
+variable "lock_resource_group" {
+  type        = bool
+  description = "lock the resource group"
+  default     = false
+}
+
 variable "tags" {
   type        = map(string)
   description = "tags to apply to deployed resources"
@@ -43,4 +49,28 @@ variable "subnet_names" {
 variable "subnet_prefixes" {
   type        = list(string)
   description = "list of subnet cidr ranges to create in vnet"
+}
+
+# database specific variables
+variable "db_sku" {
+  type        = string
+  description = "database SKU size"
+  default     = "GP_Standard_D8ds_v4"
+}
+
+variable "db_storage_mb" {
+  type        = number
+  description = "db storage size in MiB"
+  default     = 524288 # MebiBytes (512GiB)
+
+  validation {
+    condition     = contains([32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4193280, 4194304, 8388608, 16777216, 33553408], var.db_storage_mb)
+    error_message = "The instance type must be one of [32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4193280, 4194304, 8388608, 16777216, 33553408]"
+  }
+}
+
+variable "postgres_version" {
+  type        = string
+  description = "postgres version"
+  default     = "13"
 }
