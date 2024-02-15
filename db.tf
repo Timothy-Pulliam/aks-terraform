@@ -20,7 +20,7 @@ resource "azurerm_postgresql_flexible_server" "this" {
   name                   = "db-${var.project}-${var.environment}"
   resource_group_name    = azurerm_resource_group.this.name
   location               = azurerm_resource_group.this.location
-  version                = "13"
+  version                = var.postgres_version
   delegated_subnet_id    = lookup(module.vnet.vnet_subnets_name_id, "snet-db")
   private_dns_zone_id    = azurerm_private_dns_zone.db.id
   administrator_login    = "pgadmin"
@@ -31,9 +31,9 @@ resource "azurerm_postgresql_flexible_server" "this" {
   backup_retention_days        = 14
   geo_redundant_backup_enabled = true
 
-  storage_mb = 524288 # MebiBytes (512GiB)
+  storage_mb = var.db_storage_mb
 
-  sku_name = "GP_Standard_D8ds_v4"
+  sku_name = var.db_sku
 
   tags = local.tags
 }
